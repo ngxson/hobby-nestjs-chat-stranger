@@ -2,6 +2,7 @@ import { UserSetting } from './user-setting.entity';
 import { Repository } from 'typeorm';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { User } from 'src/user/user.entity';
 
 @Injectable()
 export class UserSettingService {
@@ -10,12 +11,21 @@ export class UserSettingService {
     private userSettingRepository: Repository<UserSetting>,
   ) {}
 
-  async findAll(): Promise<UserSetting[]> {
-    return await this.userSettingRepository.find();
+  async findByUser(user: User): Promise<UserSetting[]> {
+    const userSettings = await this.userSettingRepository.find({user});
+    return userSettings;
   }
 
-  async findOne(channel: string, id: string): Promise<UserSetting> {
-    const user = await this.userSettingRepository.findOne({channel, id});
-    return user;
+  async put(user: User, key: string, value: string): Promise<void> {
+    if (await this.userSettingRepository.count({user, key}) > 0) {
+      await this.userSettingRepository.update({user, key}, {value});
+    } else {
+      await this.userSettingRepository.insert({user, key, value});
+    }
+  }
+
+  async get(user: User, key: string): Promise<string> {
+    const userSetting = await this.userSettingRepository.findOne({user, key});
+    return userSetting ? userSetting.value : null;
   }
 }
