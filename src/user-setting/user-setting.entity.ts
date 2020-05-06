@@ -3,7 +3,6 @@ import {User} from '../user/user.entity';
 
 @Entity()
 @Index(['user'])
-@Index(['user', 'autoload'])
 @Index(['user', 'key'], { unique: true })
 
 export class UserSetting {
