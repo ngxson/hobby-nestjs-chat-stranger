@@ -1,4 +1,4 @@
-import {Entity, PrimaryGeneratedColumn, Column, Index, OneToMany, OneToOne} from 'typeorm';
+import {Entity, PrimaryGeneratedColumn, Column, Index, OneToMany, OneToOne, JoinColumn} from 'typeorm';
 import { UserSetting } from 'src/user-setting/user-setting.entity';
 import { Room } from 'src/room/room.entity';
 
@@ -30,6 +30,7 @@ export class User {
   target: string;
 
   @OneToOne(type => Room)
+  @JoinColumn()
   room: Room;
 
   @Column('text')

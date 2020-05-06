@@ -1,4 +1,4 @@
-import {Entity, PrimaryGeneratedColumn, Column, Index, OneToMany} from 'typeorm';
+import {Entity, PrimaryGeneratedColumn, Column, Index, OneToMany, JoinColumn} from 'typeorm';
 import { User } from 'src/user/user.entity';
 
 @Entity()
@@ -11,5 +11,5 @@ export class Room {
   created: Date;
 
   @OneToMany(type => User, user => user.room)
-  settings: User[];
+  users: User[];
 }
