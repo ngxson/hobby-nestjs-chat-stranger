@@ -11,7 +11,7 @@ export class UserSetting {
   @PrimaryGeneratedColumn()
   id: string;
 
-  @ManyToOne(type => User, user => user.settings)
+  @ManyToOne(type => User)
   user: User;
 
   @Column()
@@ -29,8 +29,5 @@ export class UserSetting {
     if (data) this.valueJson = JSON.stringify(data);
     else this.value = null;
   }
-
-  @Column('boolean')
-  autoload: boolean;
 
 }

@@ -17,15 +17,15 @@ export class UserSettingService {
   }
 
   async findAutoloadForUser(user: User): Promise<UserSetting[]> {
-    const userSettings = await this.userSettingRepository.find({user, autoload: true});
+    const userSettings = await this.userSettingRepository.find({user});
     return userSettings;
   }
 
-  async put(user: User, key: string, value: any, autoload = false): Promise<void> {
+  async put(user: User, key: string, value: any): Promise<void> {
     if (await this.userSettingRepository.count({user, key}) > 0) {
-      await this.userSettingRepository.update({user, key}, {value, autoload});
+      await this.userSettingRepository.update({user, key}, {value});
     } else {
-      await this.userSettingRepository.insert({user, key, value, autoload});
+      await this.userSettingRepository.insert({user, key, value});
     }
   }
 

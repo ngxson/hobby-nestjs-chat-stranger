@@ -44,7 +44,4 @@ export class User {
     if (data) this.dataJson = JSON.stringify(data);
     else this.data = null;
   }
-
-  @OneToMany(type => UserSetting, userSetting => userSetting.user)
-  settings: UserSetting[];
 }
