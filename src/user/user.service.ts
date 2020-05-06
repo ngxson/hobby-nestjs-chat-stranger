@@ -15,7 +15,20 @@ export class UserService {
   }
 
   async findOne(channel: string, id: string): Promise<User> {
-    const user = await this.userRepository.findOne({channel, id});
+    const user = await this.userRepository.findOne({channel, scopedId: id});
     return user;
+  }
+  
+  async setUserData(channel: string, id: string, data: any): Promise<void> {
+    let user = await this.findOne(channel, id);
+    if (user) {
+      user = Object.assign(user, data);
+    } else {
+      user = new User();
+      user = Object.assign(user, data);
+      user.channel = channel;
+      user.scopedId = id;
+    }
+    await this.userRepository.save(user);
   }
 }

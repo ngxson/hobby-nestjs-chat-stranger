@@ -3,6 +3,7 @@ import {User} from '../user/user.entity';
 
 @Entity()
 @Index(['user'])
+@Index(['user', 'autoload'])
 @Index(['user', 'key'], { unique: true })
 
 export class UserSetting {
@@ -17,6 +18,19 @@ export class UserSetting {
   key: string;
 
   @Column('text')
-  value: string;
+  valueJson: string;
+
+  public get value(): any {
+    if (this.valueJson) return JSON.parse(this.valueJson);
+    else return null;
+  }
+
+  public set value(data: any) {
+    if (data) this.valueJson = JSON.stringify(data);
+    else this.value = null;
+  }
+
+  @Column('boolean')
+  autoload: boolean;
 
 }

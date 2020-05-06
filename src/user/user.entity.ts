@@ -1,17 +1,21 @@
-import {Entity, PrimaryGeneratedColumn, Column, Index, OneToMany} from 'typeorm';
+import {Entity, PrimaryGeneratedColumn, Column, Index, OneToMany, OneToOne} from 'typeorm';
 import { UserSetting } from 'src/user-setting/user-setting.entity';
+import { Room } from 'src/room/room.entity';
 
 @Entity()
 @Index(['channel'])
-@Index(['channel', 'id'], { unique: true })
+@Index(['channel', 'scopedId'], { unique: true })
 
 export class User {
 
   @PrimaryGeneratedColumn()
-  id: string;
+  id: Number;
 
-  @Column()
+  @Column({ nullable: false })
   channel: string;
+
+  @Column({ nullable: false })
+  scopedId: string;
 
   @Column()
   name: string;
@@ -24,6 +28,9 @@ export class User {
 
   @Column()
   target: string;
+
+  @OneToOne(type => Room)
+  room: Room;
 
   @Column('text')
   public dataJson?: string;
