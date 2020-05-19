@@ -15,7 +15,10 @@ export class UserService {
   }
 
   async findOne(channel: string, id: string): Promise<User> {
-    const user = await this.userRepository.findOne({channel, scopedId: id});
+    const user = await this.userRepository.findOne({
+      relations: ['room'],
+      where: {channel, scopedId: id}
+    });
     return user;
   }
   

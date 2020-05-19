@@ -20,7 +20,7 @@ export class User {
   @Column()
   name: string;
 
-  @Column()
+  @Column({default: ''})
   status: string;
 
   @Column()

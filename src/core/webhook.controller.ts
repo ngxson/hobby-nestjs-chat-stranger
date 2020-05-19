@@ -9,11 +9,13 @@ export class WebhookController {
 
   @Get()
   get(@Query() query: any) {
-    return this.coreService.try();
+    //return this.coreService.try();
+    this.coreService.try();
+    return 'ok';
   }
 
   @Post()
-  post(@Body() createCatDto: any) {
+  post(@Body() body: any) {
     return 'This action adds a new cat';
   }
 }

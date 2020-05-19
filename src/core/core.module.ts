@@ -3,9 +3,10 @@ import { UserSettingModule } from '../user-setting/user-setting.module'
 import { UserModule } from 'src/user/user.module';
 import { WebhookController } from './webhook.controller';
 import { CoreService } from './core.service';
+import { RoomModule } from 'src/room/room.module';
 
 @Module({
-  imports: [UserModule, UserSettingModule],
+  imports: [UserModule, UserSettingModule, RoomModule],
   providers: [CoreService],
   controllers: [WebhookController],
   exports: [CoreService]
